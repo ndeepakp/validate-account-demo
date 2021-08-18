@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.example.accountValidate.controller.AccountValidateControllerTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.572 s - in com.example.accountValidate.controller.AccountValidateControllerTest

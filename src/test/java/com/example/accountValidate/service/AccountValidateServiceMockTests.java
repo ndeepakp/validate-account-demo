@@ -1,0 +1,75 @@
+package com.example.accountValidate.service;
+
+import com.assignment.accountValidate.exceptions.AccountValidateException;
+import com.assignment.accountValidate.request.AccountValidateRequest;
+import com.assignment.accountValidate.response.AccountValidateResponse;
+import com.assignment.accountValidate.service.AccountValidateService;
+import com.assignment.accountValidate.utils.DataProviderUtils;
+import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.HashSet;
+
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = AccountValidateService.class)
+class AccountValidateServiceMockTests {
+
+    @Autowired
+    AccountValidateService accountValidateService;
+
+    @MockBean
+    DataProviderUtils dataProviderUtils;
+
+    private AccountValidateRequest accountValidateRequest;
+
+    @BeforeEach
+    public void setUp() {
+
+        accountValidateRequest = new AccountValidateRequest();
+
+        accountValidateRequest.setAccountNumber("1234");
+        accountValidateRequest.setProviders(new HashSet<String>() {{
+            add("provider1");
+        }});
+    }
+
+    @Test
+    public void verifyServiceCallsDataProvider() throws AccountValidateException {
+
+        doReturn(new AccountValidateResponse()).when(dataProviderUtils).validateAccountWithProviders(Mockito.any());
+        Object response =
+                accountValidateService.validateAccount(accountValidateRequest);
+
+        Mockito.verify(dataProviderUtils, times(1)).validateAccountWithProviders(Mockito.any());
+
+        Mockito.verifyNoMoreInteractions(dataProviderUtils);
+        Assert.assertTrue(response != null);
+
+    }
+
+    @Test
+    public void verifyInputFromServiceToDataProvider() throws AccountValidateException {
+
+        accountValidateService.validateAccount(accountValidateRequest);
+        ArgumentCaptor<AccountValidateRequest> requestCaptor = ArgumentCaptor.forClass(AccountValidateRequest.class);
+
+        Mockito.verify(dataProviderUtils, times(1)).validateAccountWithProviders(requestCaptor.capture());
+        AccountValidateRequest request = requestCaptor.getValue();
+
+        Assert.assertTrue(request.getAccountNumber().equals(accountValidateRequest.getAccountNumber()));
+        Assert.assertTrue(request.getProviders().size() == (accountValidateRequest.getProviders().size()));
+    }
+
+
+}
