@@ -5,6 +5,7 @@ import com.assignment.accountValidate.config.ProviderConfiguration;
 import com.assignment.accountValidate.request.AccountValidateRequest;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -49,6 +50,7 @@ public class AccountValidateControllerTest {
     }
 
     @Test
+    @DisplayName("Positive test for OPTIONS /validate-account api to check supported HTTP Methods")
     public void testOptionsForValidateAccountController() {
         Set<HttpMethod> supportedMethods = restTemplate.optionsForAllow(getRootUrl() + "/validate-account");
         Assert.assertNotNull(supportedMethods);
@@ -58,6 +60,7 @@ public class AccountValidateControllerTest {
     }
 
     @Test
+    @DisplayName("Positive test for validate-account api with valid inputs")
     public void testValidateAccountController() {
         ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",
                 accountValidateRequest, String.class);
@@ -67,6 +70,7 @@ public class AccountValidateControllerTest {
     }
 
     @Test
+    @DisplayName("Test validate-account api with empty accountNumber")
     public void testValidateAccountControllerWithEmptyAccountNumber() {
         accountValidateRequest.setAccountNumber("");
         ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",
@@ -78,6 +82,7 @@ public class AccountValidateControllerTest {
     }
 
     @Test
+    @DisplayName("Test validate-account api with no accountNumber")
     public void testValidateAccountControllerWithMissingAccountNumber() {
         accountValidateRequest.setAccountNumber(null);
         ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",
@@ -89,6 +94,7 @@ public class AccountValidateControllerTest {
     }
 
     @Test
+    @DisplayName("Test validate-account api with alphanumeric accountNumber")
     public void testValidateAccountControllerWithAlphaNumericAccountNumber() {
         accountValidateRequest.setAccountNumber("123e456");
         ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",
@@ -100,6 +106,7 @@ public class AccountValidateControllerTest {
     }
 
     @Test
+    @DisplayName("Test validate-account api with empty provider list")
     public void testValidateAccountControllerWithNoProvider() {
         accountValidateRequest.setProviders(new HashSet<>());
         ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",
@@ -110,6 +117,7 @@ public class AccountValidateControllerTest {
     }
 
     @Test
+    @DisplayName("Test validate-account api with duplicate providers")
     public void testValidateAccountControllerWithDuplicateProvider() {
 
         HttpHeaders headers = new HttpHeaders();
@@ -133,6 +141,7 @@ public class AccountValidateControllerTest {
     }
 
     @Test
+    @DisplayName("Test validate-account api with no providers")
     public void testValidateAccountControllerWithMissingProviderParam() {
 
         HttpHeaders headers = new HttpHeaders();
@@ -150,6 +159,7 @@ public class AccountValidateControllerTest {
     }
 
     @Test
+    @DisplayName("Test validate-account api with content type other thank APPLICATION_JSON media type")
     public void testValidateAccountControllerWithInvalidContentType() {
 
         HttpHeaders headers = new HttpHeaders();
@@ -167,6 +177,7 @@ public class AccountValidateControllerTest {
     }
 
     @Test
+    @DisplayName("Test validate-account api with invalid provider")
     public void testValidateAccountControllerWithInvalidProvider() {
         accountValidateRequest.getProviders().add("provider-not-in-use");
         ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",

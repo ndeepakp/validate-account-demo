@@ -60,29 +60,31 @@
 ### Tests Covered:
 
     Controller:
-        * testValidateAccountControllerWithInvalidContentType
-        * testValidateAccountControllerWithNoProvider
-        * testValidateAccountController
-        * testValidateAccountControllerWithEmptyAccountNumber
-        * testValidateAccountControllerWithMissingAccountNumber
-        * testValidateAccountControllerWithDuplicateProvider
-        * testValidateAccountControllerWithInvalidProvider
-        * testValidateAccountControllerWithMissingProviderParam
-        * testValidateAccountControllerWithAlphaNumericAccountNumber
-        * testOptionsForValidateAccountController
+        * Test validate-account api with content type other thank APPLICATION_JSON media type
+        * Test validate-account api with empty provider list
+        * Positive test for validate-account api with valid inputs
+        * Test validate-account api with empty accountNumber
+        * Test validate-account api with no accountNumber
+        * Test validate-account api with duplicate providers
+        * Test validate-account api with invalid provider
+        * Test validate-account api with no providers
+        * Test validate-account api with alphanumeric accountNumber
+        * Positive test for OPTIONS /validate-account api to check supported HTTP Methods
 
     Service:
-        * verifyInputFromServiceToDataProvider
-        * verifyServiceCallsDataProvider
+        * Verify if the application is able to load the Spring context.
+        * Verify if data provider is getting the input that is sent to service class.
+        * Verify if data provider util was invoked.
 
     Data Provider:
-        * verifyDataProviderWithMissingAccountNumber()
-        * testDataProviderWithInvalidProviderName()
-        * verifyDataProviderWithValidInput()
-        * verifyDataProviderWithInvalidAccountNumber()
-        * verifyServiceCallsDataProviderWithEmptyProvidersSet()
-        * verifyDataProviderForAccountNumber()
-        * verifyServiceCallsDataProviderWithNoProviders()
+        * Verify data provider throws exception when account number is missing.
+        * Verify data provider util throws exception when provider does not exist in configuration.
+        * Verify data provider gives expected output with valid input.
+        * Verify data provider throws exception when account number is alphanumeric.
+        * Verify data provider util returns all data from configuration when provider is empty.
+        * Verify data provider util returns a boolean value.
+        * Verify data provider util returns all data from configuration when provider is missing.
+        * Verify data provider throws exception when account number is empty.
 
 ### Usage:
 

@@ -7,6 +7,7 @@ import com.assignment.accountValidate.service.AccountValidateService;
 import com.assignment.accountValidate.utils.DataProviderUtils;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -45,6 +46,13 @@ class AccountValidateServiceMockTests {
     }
 
     @Test
+    @DisplayName("Verify if the application is able to load the Spring context.")
+    public void contextLoads() {
+        // Just to check if spring application context gets loaded or not.
+    }
+
+    @Test
+    @DisplayName("Verify if data provider util was invoked.")
     public void verifyServiceCallsDataProvider() throws AccountValidateException {
 
         doReturn(new AccountValidateResponse()).when(dataProviderUtils).validateAccountWithProviders(Mockito.any());
@@ -59,6 +67,7 @@ class AccountValidateServiceMockTests {
     }
 
     @Test
+    @DisplayName("Verify if data provider is getting the input that is sent to service class.")
     public void verifyInputFromServiceToDataProvider() throws AccountValidateException {
 
         accountValidateService.validateAccount(accountValidateRequest);
