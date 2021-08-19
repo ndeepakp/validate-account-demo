@@ -10,10 +10,12 @@ import com.assignment.accountValidate.response.AccountValidateResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 @Component
@@ -24,6 +26,11 @@ public class DataProviderUtils {
 
     @Autowired
     AccountValidateResponse accountValidateResponse;
+
+    @Bean
+    public Random getRandom() {
+        return new Random();
+    }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataProviderUtils.class);
 
@@ -70,8 +77,9 @@ public class DataProviderUtils {
 
     public boolean validateAccountWithProvider(String accountNumber, String url) {
 
-        LOGGER.info("Hitting url: " + url);
-        return Long.parseLong(accountNumber) % 2 == 0;
+        Boolean b = getRandom().nextBoolean();
+        LOGGER.info("Hitting url: " + b);
+        return Long.parseLong(accountNumber) % 2 == 0 || getRandom().nextBoolean();
     }
 
     public AccountValidateResponse.Provider buildProviderDetails(String accountNumber, String providerName) throws ProviderNotFoundException {
