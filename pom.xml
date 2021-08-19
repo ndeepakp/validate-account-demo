@@ -15,7 +15,7 @@
     <description>Home Task project for validating account number against providers</description>
     <properties>
         <java.version>1.8</java.version>
-        <start-class>com.assignment.accountValidate.AccountValidateApplication</start-class>
+        <start-class>com.assignment.accountvalidator.AccountValidateApplication</start-class>
     </properties>
     <dependencies>
         <dependency>

@@ -1,10 +1,8 @@
-package com.assignment.accountValidate.response;
+package com.assignment.accountvalidator.response;
 
 import lombok.Data;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data

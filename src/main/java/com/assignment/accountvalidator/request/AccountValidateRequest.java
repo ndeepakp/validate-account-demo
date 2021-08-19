@@ -1,4 +1,4 @@
-package com.assignment.accountValidate.request;
+package com.assignment.accountvalidator.request;
 
 import lombok.Data;
 

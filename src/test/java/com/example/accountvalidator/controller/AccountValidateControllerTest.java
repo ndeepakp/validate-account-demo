@@ -1,8 +1,8 @@
-package com.example.accountValidate.controller;
+package com.example.accountvalidator.controller;
 
-import com.assignment.accountValidate.AccountValidateApplication;
-import com.assignment.accountValidate.config.ProviderConfiguration;
-import com.assignment.accountValidate.request.AccountValidateRequest;
+import com.assignment.accountvalidator.AccountValidateApplication;
+import com.assignment.accountvalidator.config.ProviderConfiguration;
+import com.assignment.accountvalidator.request.AccountValidateRequest;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -50,9 +50,9 @@ public class AccountValidateControllerTest {
     }
 
     @Test
-    @DisplayName("Positive test for OPTIONS /validate-account api to check supported HTTP Methods")
+    @DisplayName("Positive test for OPTIONS /account/validate api to check supported HTTP Methods")
     public void testOptionsForValidateAccountController() {
-        Set<HttpMethod> supportedMethods = restTemplate.optionsForAllow(getRootUrl() + "/validate-account");
+        Set<HttpMethod> supportedMethods = restTemplate.optionsForAllow(getRootUrl() + "/account/validate");
         Assert.assertNotNull(supportedMethods);
         Assert.assertFalse(supportedMethods.isEmpty());
         Assert.assertTrue(supportedMethods.contains(HttpMethod.OPTIONS));
@@ -62,7 +62,7 @@ public class AccountValidateControllerTest {
     @Test
     @DisplayName("Positive test for validate-account api with valid inputs")
     public void testValidateAccountController() {
-        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",
+        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/account/validate",
                 accountValidateRequest, String.class);
         Assert.assertNotNull(postResponse);
         Assert.assertNotNull(postResponse.getBody());
@@ -73,7 +73,7 @@ public class AccountValidateControllerTest {
     @DisplayName("Test validate-account api with empty accountNumber")
     public void testValidateAccountControllerWithEmptyAccountNumber() {
         accountValidateRequest.setAccountNumber("");
-        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",
+        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/account/validate",
                 accountValidateRequest, String.class);
         Assert.assertNotNull(postResponse);
         Assert.assertNotNull(postResponse.getBody());
@@ -85,7 +85,7 @@ public class AccountValidateControllerTest {
     @DisplayName("Test validate-account api with no accountNumber")
     public void testValidateAccountControllerWithMissingAccountNumber() {
         accountValidateRequest.setAccountNumber(null);
-        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",
+        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/account/validate",
                 accountValidateRequest, String.class);
         Assert.assertNotNull(postResponse);
         Assert.assertNotNull(postResponse.getBody());
@@ -97,7 +97,7 @@ public class AccountValidateControllerTest {
     @DisplayName("Test validate-account api with alphanumeric accountNumber")
     public void testValidateAccountControllerWithAlphaNumericAccountNumber() {
         accountValidateRequest.setAccountNumber("123e456");
-        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",
+        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/account/validate",
                 accountValidateRequest, String.class);
         System.out.println(postResponse.getBody());
         Assert.assertNotNull(postResponse);
@@ -109,7 +109,7 @@ public class AccountValidateControllerTest {
     @DisplayName("Test validate-account api with empty provider list")
     public void testValidateAccountControllerWithNoProvider() {
         accountValidateRequest.setProviders(new HashSet<>());
-        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",
+        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/account/validate",
                 accountValidateRequest, String.class);
         Assert.assertNotNull(postResponse);
         Assert.assertNotNull(postResponse.getBody());
@@ -132,7 +132,7 @@ public class AccountValidateControllerTest {
                 " ]\n" +
                 "}", headers);
 
-        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",
+        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/account/validate",
                 entity, String.class);
 
         Assert.assertNotNull(postResponse);
@@ -150,7 +150,7 @@ public class AccountValidateControllerTest {
         HttpEntity<String> entity = new HttpEntity<>("{\n" +
                 " \"accountNumber\": \"1245678965321\"}", headers);
 
-        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",
+        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/account/validate",
                 entity, String.class);
 
         Assert.assertNotNull(postResponse);
@@ -168,7 +168,7 @@ public class AccountValidateControllerTest {
         HttpEntity<String> entity = new HttpEntity<>("{\n" +
                 " \"accountNumber\": \"1245678965321\"}", headers);
 
-        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",
+        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/account/validate",
                 entity, String.class);
 
         Assert.assertNotNull(postResponse);
@@ -180,7 +180,7 @@ public class AccountValidateControllerTest {
     @DisplayName("Test validate-account api with invalid provider")
     public void testValidateAccountControllerWithInvalidProvider() {
         accountValidateRequest.getProviders().add("provider-not-in-use");
-        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/validate-account",
+        ResponseEntity<String> postResponse = restTemplate.postForEntity(getRootUrl() + "/account/validate",
                 accountValidateRequest, String.class);
         System.out.println(postResponse.getBody());
         Assert.assertNotNull(postResponse);

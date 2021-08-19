@@ -89,7 +89,7 @@
 ### Usage:
 
     1) POST /validate-account
-        curl -X POST http://localhost:8080/validate-account --data '{"accountNumber": "123", "providers": ["provider1","provider2"]}' --header "Content-Type:application/json"
+        curl -X POST http://localhost:8080/account/validate --data '{"accountNumber": "123", "providers": ["provider1","provider2"]}' --header "Content-Type:application/json"
 
     2) OPTIONS /validate-account
-        curl -v -X OPTIONS http://localhost:8080/validate-account
+        curl -v -X OPTIONS http://localhost:8080/account/validate

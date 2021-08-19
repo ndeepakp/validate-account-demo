@@ -1,14 +1,14 @@
-package com.example.accountValidate.utils;
+package com.example.accountvalidator.utils;
 
-import com.assignment.accountValidate.AccountValidateApplication;
-import com.assignment.accountValidate.config.ProviderConfiguration;
-import com.assignment.accountValidate.exceptions.AccountValidateException;
-import com.assignment.accountValidate.exceptions.InvalidAccountNumberException;
-import com.assignment.accountValidate.exceptions.MissingAccountNumberException;
-import com.assignment.accountValidate.exceptions.ProviderNotFoundException;
-import com.assignment.accountValidate.request.AccountValidateRequest;
-import com.assignment.accountValidate.response.AccountValidateResponse;
-import com.assignment.accountValidate.utils.DataProviderUtils;
+import com.assignment.accountvalidator.AccountValidateApplication;
+import com.assignment.accountvalidator.config.ProviderConfiguration;
+import com.assignment.accountvalidator.exceptions.AccountValidateException;
+import com.assignment.accountvalidator.exceptions.InvalidAccountNumberException;
+import com.assignment.accountvalidator.exceptions.MissingAccountNumberException;
+import com.assignment.accountvalidator.exceptions.ProviderNotFoundException;
+import com.assignment.accountvalidator.request.AccountValidateRequest;
+import com.assignment.accountvalidator.response.AccountValidateResponse;
+import com.assignment.accountvalidator.utils.DataProviderUtils;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

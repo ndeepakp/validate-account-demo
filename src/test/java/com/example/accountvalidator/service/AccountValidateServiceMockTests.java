@@ -1,10 +1,10 @@
-package com.example.accountValidate.service;
+package com.example.accountvalidator.service;
 
-import com.assignment.accountValidate.exceptions.AccountValidateException;
-import com.assignment.accountValidate.request.AccountValidateRequest;
-import com.assignment.accountValidate.response.AccountValidateResponse;
-import com.assignment.accountValidate.service.AccountValidateService;
-import com.assignment.accountValidate.utils.DataProviderUtils;
+import com.assignment.accountvalidator.exceptions.AccountValidateException;
+import com.assignment.accountvalidator.request.AccountValidateRequest;
+import com.assignment.accountvalidator.response.AccountValidateResponse;
+import com.assignment.accountvalidator.service.AccountValidateService;
+import com.assignment.accountvalidator.utils.DataProviderUtils;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

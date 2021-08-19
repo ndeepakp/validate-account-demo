@@ -1,14 +1,13 @@
-package com.assignment.accountValidate.utils;
+package com.assignment.accountvalidator.utils;
 
-import com.assignment.accountValidate.config.ProviderConfiguration;
-import com.assignment.accountValidate.exceptions.AccountValidateException;
-import com.assignment.accountValidate.exceptions.InvalidAccountNumberException;
-import com.assignment.accountValidate.exceptions.MissingAccountNumberException;
-import com.assignment.accountValidate.exceptions.ProviderNotFoundException;
-import com.assignment.accountValidate.request.AccountValidateRequest;
-import com.assignment.accountValidate.response.AccountValidateResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.assignment.accountvalidator.config.ProviderConfiguration;
+import com.assignment.accountvalidator.exceptions.AccountValidateException;
+import com.assignment.accountvalidator.exceptions.InvalidAccountNumberException;
+import com.assignment.accountvalidator.exceptions.MissingAccountNumberException;
+import com.assignment.accountvalidator.exceptions.ProviderNotFoundException;
+import com.assignment.accountvalidator.request.AccountValidateRequest;
+import com.assignment.accountvalidator.response.AccountValidateResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -19,6 +18,7 @@ import java.util.Random;
 import java.util.Set;
 
 @Component
+@Slf4j
 public class DataProviderUtils {
 
     @Autowired
@@ -27,12 +27,8 @@ public class DataProviderUtils {
     @Autowired
     AccountValidateResponse accountValidateResponse;
 
-    @Bean
-    public Random getRandom() {
-        return new Random();
-    }
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(DataProviderUtils.class);
+    @Autowired
+    ExternalAccountValidator externalAccountValidator;
 
     protected boolean isNumeric(String accountNumber) throws AccountValidateException {
 
@@ -44,7 +40,7 @@ public class DataProviderUtils {
             throw new InvalidAccountNumberException("Account Number is not valid.");
         }
 
-        LOGGER.info("Account Number is Valid.");
+        log.info("Account Number is Valid.");
         return true;
     }
 
@@ -53,7 +49,7 @@ public class DataProviderUtils {
         String accountNumber = accountValidateRequest.getAccountNumber();
         Set<String> providers = accountValidateRequest.getProviders();
 
-        LOGGER.info("Validating details of the account number against the providers: " + providers);
+        log.info("Validating details of the account number against the providers: " + providers);
 
         if (accountValidateResponse.getProviders() != null) {
             accountValidateResponse.getProviders().clear();
@@ -75,13 +71,6 @@ public class DataProviderUtils {
         }
     }
 
-    public boolean validateAccountWithProvider(String accountNumber, String url) {
-
-        Boolean b = getRandom().nextBoolean();
-        LOGGER.info("Hitting url: " + b);
-        return Long.parseLong(accountNumber) % 2 == 0 || getRandom().nextBoolean();
-    }
-
     public AccountValidateResponse.Provider buildProviderDetails(String accountNumber, String providerName) throws ProviderNotFoundException {
 
         System.out.println(providerConfiguration.getProviders());
@@ -91,7 +80,7 @@ public class DataProviderUtils {
                 AccountValidateResponse.Provider provider = accountValidateResponse.new Provider();
 
                 provider.setName(map.get("name"));
-                provider.setValid(validateAccountWithProvider(accountNumber, map.get("url")));
+                provider.setValid(externalAccountValidator.validateAccountWithProvider(accountNumber, map.get("url")));
                 return provider;
             }
         }
@@ -102,7 +91,7 @@ public class DataProviderUtils {
     protected AccountValidateResponse buildAllProviderDetails(String accountNumber) throws ProviderNotFoundException {
 
 
-        LOGGER.info("Validating details of the account number against all the providers.");
+        log.info("Validating details of the account number against all the providers.");
 
         for (Map<String, String> map : providerConfiguration.getProviders()) {
 
