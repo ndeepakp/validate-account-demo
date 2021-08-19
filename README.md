@@ -33,7 +33,7 @@
 
 ### API's created:
 
-    1) validate-account (HttpMethod.POST and HttpMethod.OPTIONS) and input for the same
+    1) /accouht/validate (HttpMethod.POST and HttpMethod.OPTIONS) and input for the same
 
         {
           "accountNumber": "12345678",
@@ -41,6 +41,18 @@
             "provider1",
             "provider2"
           ]
+        }
+        
+        Response from the api:
+        {
+            "result": [{
+                "provider": "provider1",
+                "isValid": true
+                },
+                {
+                "provider": "provider2",
+                "isValid": false
+                }]
         }
 
     **  PS: Reason to chose POST HttpMethod for this API was:
