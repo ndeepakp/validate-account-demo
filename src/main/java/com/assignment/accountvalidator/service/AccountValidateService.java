@@ -15,7 +15,7 @@ public class AccountValidateService {
     @Autowired
     DataProviderUtils dataProviderUtils;
 
-    public AccountValidateResponse validateAccount(AccountValidateRequest accountValidateRequest) throws AccountValidateException {
+    public AccountValidateResponse validateAccount(AccountValidateRequest accountValidateRequest) {
 
         log.info("Fetching results of the account number: " + accountValidateRequest.getAccountNumber());
         return dataProviderUtils.validateAccountWithProviders(accountValidateRequest);

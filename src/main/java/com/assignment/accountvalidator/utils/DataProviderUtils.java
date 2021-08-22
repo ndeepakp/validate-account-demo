@@ -30,7 +30,7 @@ public class DataProviderUtils {
     @Autowired
     ExternalAccountValidator externalAccountValidator;
 
-    protected boolean isNumeric(String accountNumber) throws AccountValidateException {
+    protected boolean isNumeric(String accountNumber) {
 
         if (String.valueOf(accountNumber).equals("null") || accountNumber.isEmpty()) {
             throw new MissingAccountNumberException("Account Number is missing or is empty.");
@@ -44,7 +44,7 @@ public class DataProviderUtils {
         return true;
     }
 
-    public AccountValidateResponse validateAccountWithProviders(AccountValidateRequest accountValidateRequest) throws AccountValidateException {
+    public AccountValidateResponse validateAccountWithProviders(AccountValidateRequest accountValidateRequest) {
 
         String accountNumber = accountValidateRequest.getAccountNumber();
         Set<String> providers = accountValidateRequest.getProviders();
@@ -71,7 +71,7 @@ public class DataProviderUtils {
         }
     }
 
-    public AccountValidateResponse.Provider buildProviderDetails(String accountNumber, String providerName) throws ProviderNotFoundException {
+    public AccountValidateResponse.Provider buildProviderDetails(String accountNumber, String providerName) {
 
         System.out.println(providerConfiguration.getProviders());
         for (Map<String, String> map : providerConfiguration.getProviders()) {
@@ -88,7 +88,7 @@ public class DataProviderUtils {
         throw new ProviderNotFoundException("Provider Name not found: <" + providerName + ">.");
     }
 
-    protected AccountValidateResponse buildAllProviderDetails(String accountNumber) throws ProviderNotFoundException {
+    protected AccountValidateResponse buildAllProviderDetails(String accountNumber) {
 
 
         log.info("Validating details of the account number against all the providers.");

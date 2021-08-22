@@ -53,7 +53,7 @@ class AccountValidateServiceMockTests {
 
     @Test
     @DisplayName("Verify if data provider util was invoked.")
-    public void verifyServiceCallsDataProvider() throws AccountValidateException {
+    public void verifyServiceCallsDataProvider() {
 
         doReturn(new AccountValidateResponse()).when(dataProviderUtils).validateAccountWithProviders(Mockito.any());
         Object response =
@@ -68,7 +68,7 @@ class AccountValidateServiceMockTests {
 
     @Test
     @DisplayName("Verify if data provider is getting the input that is sent to service class.")
-    public void verifyInputFromServiceToDataProvider() throws AccountValidateException {
+    public void verifyInputFromServiceToDataProvider() {
 
         accountValidateService.validateAccount(accountValidateRequest);
         ArgumentCaptor<AccountValidateRequest> requestCaptor = ArgumentCaptor.forClass(AccountValidateRequest.class);

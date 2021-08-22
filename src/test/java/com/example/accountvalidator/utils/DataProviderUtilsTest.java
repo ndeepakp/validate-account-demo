@@ -48,7 +48,7 @@ class DataProviderUtilsTest {
 
     @Test
     @DisplayName("Verify data provider gives expected output with valid input.")
-    public void verifyDataProviderWithValidInput() throws AccountValidateException {
+    public void verifyDataProviderWithValidInput() {
 
         accountValidateResponse = dataProviderUtils.validateAccountWithProviders(accountValidateRequest);
         Assert.assertTrue(accountValidateRequest.getProviders().contains(accountValidateResponse.getProviders().get(0).getName()));
@@ -57,7 +57,7 @@ class DataProviderUtilsTest {
 
     @Test
     @DisplayName("Verify data provider throws exception when account number is empty.")
-    public void verifyDataProviderWithEmptyAccountNumber() throws AccountValidateException {
+    public void verifyDataProviderWithEmptyAccountNumber() {
         accountValidateRequest.setAccountNumber("");
 
         Assert.assertThrows(MissingAccountNumberException.class, () -> {
@@ -67,7 +67,7 @@ class DataProviderUtilsTest {
 
     @Test
     @DisplayName("Verify data provider throws exception when account number is missing.")
-    public void verifyDataProviderWithMissingAccountNumber() throws AccountValidateException {
+    public void verifyDataProviderWithMissingAccountNumber() {
         accountValidateRequest.setAccountNumber(null);
 
         Assert.assertThrows(MissingAccountNumberException.class, () -> {
@@ -77,7 +77,7 @@ class DataProviderUtilsTest {
 
     @Test
     @DisplayName("Verify data provider throws exception when account number is alphanumeric.")
-    public void verifyDataProviderWithInvalidAccountNumber() throws AccountValidateException {
+    public void verifyDataProviderWithInvalidAccountNumber() {
         accountValidateRequest.setAccountNumber("123e456");
 
         Assert.assertThrows(InvalidAccountNumberException.class, () -> {
@@ -87,7 +87,7 @@ class DataProviderUtilsTest {
 
     @Test
     @DisplayName("Verify data provider util returns all data from configuration when provider is missing.")
-    public void verifyServiceCallsDataProviderWithNoProviders() throws AccountValidateException {
+    public void verifyServiceCallsDataProviderWithNoProviders() {
         accountValidateRequest.setProviders(null);
 
         accountValidateResponse = dataProviderUtils.validateAccountWithProviders(accountValidateRequest);
@@ -96,7 +96,7 @@ class DataProviderUtilsTest {
 
     @Test
     @DisplayName("Verify data provider util returns all data from configuration when provider is empty.")
-    public void verifyServiceCallsDataProviderWithEmptyProvidersSet() throws AccountValidateException {
+    public void verifyServiceCallsDataProviderWithEmptyProvidersSet() {
         accountValidateRequest.setProviders(new HashSet<>());
 
         accountValidateResponse = dataProviderUtils.validateAccountWithProviders(accountValidateRequest);
@@ -105,7 +105,7 @@ class DataProviderUtilsTest {
 
     @Test
     @DisplayName("Verify data provider util returns a boolean value.")
-    public void verifyDataProviderForAccountNumber() throws AccountValidateException {
+    public void verifyDataProviderForAccountNumber() {
 
         AccountValidateResponse.Provider provider = dataProviderUtils.buildProviderDetails(accountValidateRequest.getAccountNumber(), "provider1");
         Assert.assertTrue(provider.isValid() || !provider.isValid());
